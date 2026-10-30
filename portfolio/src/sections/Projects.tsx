@@ -1,4 +1,6 @@
 import { Link } from 'react-router'
+import { useRef } from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { projectPlaceholders } from '../data/projects'
 import { getProjects } from '../services/projectService'
 import styles from './Projects.module.css'
@@ -6,6 +8,16 @@ import styles from './Projects.module.css'
 function Projects() {
   const projects = getProjects()
   const hasProjects = projects.length > 0
+  const track = useRef<HTMLDivElement>(null)
+
+  function scrollProjects(direction: number) {
+    const list = track.current
+    if (!list) return
+    list.scrollBy({
+      left: direction * list.clientWidth,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }
 
   return (
     <section
@@ -30,7 +42,14 @@ function Projects() {
         the project list and use the arrow keys.
       </p>
 
+      <div className={styles.controls}>
+        <button type="button" aria-label="Previous projects" aria-controls="project-list" onClick={() => scrollProjects(-1)}><ArrowLeft size={20} aria-hidden="true" /></button>
+        <button type="button" aria-label="Next projects" aria-controls="project-list" onClick={() => scrollProjects(1)}><ArrowRight size={20} aria-hidden="true" /></button>
+      </div>
+
       <div
+        ref={track}
+        id="project-list"
         className={styles.track}
         role="region"
         aria-label="Project list"
@@ -53,6 +72,7 @@ function Projects() {
                       {project.category}
                     </span>
                   )}
+                  <span className={styles.badge} data-category={project.category}>{project.category}</span>
                 </div>
 
                 <div className={styles.body}>
@@ -77,36 +97,45 @@ function Projects() {
                     to={`/projects/${encodeURIComponent(project.slug)}`}
                     aria-label={`View project: ${project.title}`}
                   >
-                    View Project <span aria-hidden="true">→</span>
+                    View Project <ArrowRight size={18} aria-hidden="true" />
                   </Link>
                 </div>
               </article>
             ))
-          : projectPlaceholders.map((placeholder, index) => (
+          : projectPlaceholders.map((placeholder) => (
               <article
                 key={placeholder.id}
                 className={styles.card}
               >
                 <div className={styles.visual}>
-                  <span className={styles.placeholderNumber} aria-hidden="true">
-                    0{index + 1}
-                  </span>
-                  <span className={styles.visualLabel}>
-                    {placeholder.category}
-                  </span>
+                  <img
+                    src={placeholder.image.src}
+                    alt={placeholder.image.alt}
+                    width={960}
+                    height={600}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className={styles.badge} data-category={placeholder.category}>{placeholder.category}</span>
                 </div>
 
                 <div className={styles.body}>
                   <p className={styles.category}>In preparation</p>
                   <h3>{placeholder.title}</h3>
                   <p className={styles.summary}>
-                    Placeholder — project details will be added
-                    once documented.
+                    {placeholder.summary}
                   </p>
+                  <ul className={styles.technologies} aria-label="Planned technologies">
+                    {placeholder.technologies.slice(0, 4).map((technology) => <li key={technology}>{technology}</li>)}
+                  </ul>
+                  <Link className={styles.projectLink} to={`/projects/${placeholder.id}`} aria-label={`View project: ${placeholder.title}`}>
+                    View Project <ArrowRight size={18} aria-hidden="true" />
+                  </Link>
                 </div>
               </article>
             ))}
       </div>
+      {!hasProjects && <p className={styles.help}>Illustrative images — these projects are not presented as completed work.</p>}
     </section>
   )
 }

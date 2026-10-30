@@ -1,4 +1,5 @@
 import { skillCategories } from '../data/skills'
+import { Cloud, Code2, Network } from 'lucide-react'
 import styles from './Skills.module.css'
 
 function Skills() {
@@ -19,10 +20,12 @@ function Skills() {
       </p>
 
       <div className={styles.categories}>
-        {skillCategories.map((category, index) => (
+        {skillCategories.map((category, index) => {
+          const Icon = [Network, Cloud, Code2][index] ?? Code2
+          return (
           <div key={category.title} className={styles.category}>
             <span className={styles.number} aria-hidden="true">
-              0{index + 1}
+              <Icon size={24} />
             </span>
 
             <h3 className={styles.categoryTitle}>
@@ -39,7 +42,8 @@ function Skills() {
               ))}
             </ul>
           </div>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

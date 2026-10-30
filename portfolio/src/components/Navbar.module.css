@@ -7,12 +7,13 @@
 }
 
 .navigation {
-  display: flex;
+  display: grid;
+  /* Equal side tracks keep the middle navigation centred in the page. */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-6);
-  width: 100%;
   max-width: var(--content-width);
+  min-height: 84px;
   margin-inline: auto;
   padding: var(--space-3) var(--space-6);
 }
@@ -20,27 +21,19 @@
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
+  gap: var(--space-3);
   min-height: 44px;
   color: var(--color-text-primary);
   font-size: 1.375rem;
   font-weight: 750;
   text-decoration: none;
 }
-
-.dot {
-  color: var(--color-primary);
-}
-
-.links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
+.monogram { width: 27px; height: 32px; color: var(--color-primary); }
+.panel { display: contents; }
+.links { display: flex; gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
 .links a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -50,32 +43,40 @@
   text-decoration: none;
   transition: color 180ms ease;
 }
-
-.links a:hover {
-  color: var(--color-primary);
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
+.links a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform 180ms ease;
 }
-
-.menuButton {
-  display: none;
+.links a:hover, .links a[aria-current] { color: var(--color-primary); }
+.links a[aria-current]::after, .links a:hover::after { transform: scaleX(1); }
+.talk, .menuButton {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 80px;
+  gap: var(--space-2);
   min-height: 44px;
   padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-button);
   color: var(--color-text-primary);
   background: var(--color-surface);
+  font-size: 0.875rem;
   font-weight: 600;
-  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 180ms ease, background-color 180ms ease;
 }
-
-.menuButton:hover {
-  border-color: var(--color-primary);
-}
-
+.talk { justify-self: end; }
+.talk svg { color: var(--color-primary); }
+.talk:hover, .menuButton:hover { border-color: var(--color-primary); background: var(--color-accent-soft); }
+.menuButton { display: none; cursor: pointer; }
 .skipLink {
   position: absolute;
   top: var(--space-2);
@@ -87,45 +88,15 @@
   background: var(--color-text-primary);
   transform: translateY(-200%);
 }
+.skipLink:focus { transform: translateY(0); }
 
-.skipLink:focus {
-  transform: translateY(0);
-}
-
-@media (max-width: 64rem) {
-  .navigation {
-    flex-wrap: wrap;
-    gap: 0;
-  }
-
-  .menuButton {
-    display: inline-flex;
-  }
-
-  .links {
-    display: none;
-    flex-basis: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    max-height: 60vh;
-    margin-top: var(--space-3);
-    padding-block: var(--space-2);
-    overflow-y: auto;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .links.open {
-    display: flex;
-  }
-
-  .links a {
-    display: flex;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-button);
-  }
-
-  .links a:hover {
-    background: var(--color-accent-soft);
-  }
+@media (max-width: 68rem) {
+  .navigation { grid-template-columns: 1fr auto; min-height: 72px; gap: 0; }
+  .menuButton { display: inline-flex; justify-self: end; }
+  .panel { display: none; grid-column: 1 / -1; max-height: 65dvh; overflow-y: auto; }
+  .panel.open { display: grid; gap: var(--space-4); padding-block: var(--space-4); }
+  .links { flex-direction: column; gap: 0; border-top: 1px solid var(--color-border); }
+  .links a { display: flex; padding: var(--space-2) var(--space-3); }
+  .links a::after { right: auto; width: 24px; left: var(--space-3); }
+  .talk { justify-self: start; }
 }

@@ -1,10 +1,32 @@
 import { useParams } from 'react-router'
 import { getProjectBySlug } from '../services/projectService'
+import { projectPlaceholders } from '../data/projects'
 import styles from './ProjectDetail.module.css'
 
 function ProjectDetail() {
   const { slug } = useParams()
   const project = slug ? getProjectBySlug(slug) : undefined
+  const preparation = projectPlaceholders.find((item) => item.id === slug)
+
+  if (!project && preparation) {
+    return (
+      <article className={styles.page}>
+        <a href="/#projects">Back to projects</a>
+        <header className={styles.header}>
+          <p>{preparation.category} · In preparation</p>
+          <h1>{preparation.title}</h1>
+          <p>{preparation.summary}</p>
+          <img src={preparation.image.src} alt={preparation.image.alt} width={960} height={600} />
+        </header>
+        <section className={styles.section}>
+          <h2>Documentation in preparation</h2>
+          <p>This is a preview of a planned project. The image is illustrative. Architecture, implementation and results will be published once documented.</p>
+          <h2>Planned technologies</h2>
+          <ul>{preparation.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
+        </section>
+      </article>
+    )
+  }
 
   if (!project) {
     return (

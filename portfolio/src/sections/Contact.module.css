@@ -24,6 +24,7 @@
 }
 
 .links a {
+  gap: var(--space-3);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -48,6 +49,15 @@
 .pending {
   margin-top: var(--space-6);
   color: var(--color-text-secondary);
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
 }
 
 @media (max-width: 48rem) {

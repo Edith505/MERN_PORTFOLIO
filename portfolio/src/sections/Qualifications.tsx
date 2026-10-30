@@ -1,9 +1,26 @@
 import {
   certifications,
+  continuousLearning,
   education,
   experiences,
 } from '../data/qualifications'
+import { Award, BookOpen, ExternalLink } from 'lucide-react'
 import styles from './Qualifications.module.css'
+
+function credentialUrl(value?: string): string | undefined {
+  if (!value) return undefined
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' ? url.href : undefined
+  } catch {
+    return undefined
+  }
+}
+
+function learningDate(value: string) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${months[Number(value.slice(5, 7)) - 1]} ${value.slice(0, 4)}`
+}
 
 function Qualifications() {
   return (
@@ -77,30 +94,53 @@ function Qualifications() {
           Certifications<span>.</span>
         </h2>
 
-        {certifications.length === 0 ? (
-          <p className={styles.empty}>
-            Certification details will be published once confirmed.
-          </p>
-        ) : (
-          <ul className={styles.certifications}>
-            {certifications.map((item) => (
-              <li key={item.id} className={styles.certification}>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p className={styles.description}>{item.issuer}</p>
+        <div className={styles.professionalGroup}>
+          <h3 className={styles.groupTitle}><Award size={24} aria-hidden="true" /> Professional Certifications</h3>
+          {certifications.length === 0 ? (
+            <div className={styles.professionalEmpty}>
+              <Award size={32} aria-hidden="true" />
+              <div>
+                <h4>Credentials, clearly documented.</h4>
+                <p>Professional certification details and verified progress will be added once confirmed.</p>
+              </div>
+            </div>
+          ) : (
+            <ul className={styles.certifications}>
+              {certifications.map((item) => {
+                const url = credentialUrl(item.verificationUrl)
+                return (
+                  <li key={item.id} className={styles.certification}>
+                    <Award size={28} className={styles.awardIcon} aria-hidden="true" />
+                    <h4>{item.title}</h4>
+                    <p className={styles.description}>{item.issuer}</p>
+                    {item.date && <p className={styles.description}>{item.date}</p>}
+                    <span className={styles.status}>{item.status}</span>
+                    {item.credentialId && <p className={styles.description}>Credential ID: {item.credentialId}</p>}
+                    {url && <a className={styles.credentialLink} href={url} aria-label={`View credential: ${item.title}`}>View Credential <ExternalLink size={15} aria-hidden="true" /></a>}
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
 
-                  {item.date && (
-                    <p className={styles.description}>{item.date}</p>
-                  )}
-                </div>
-
-                <span className={styles.status}>
-                  {item.status}
-                </span>
-              </li>
-            ))}
+        <div className={styles.learningGroup}>
+          <h3 className={styles.groupTitle}><BookOpen size={20} aria-hidden="true" /> Continuous Learning</h3>
+          <p className={styles.learningIntro}>Selected course completion certificates from LinkedIn Learning.</p>
+          <ul className={styles.learningGrid}>
+            {continuousLearning.map((item) => {
+              const url = credentialUrl(item.verificationUrl)
+              return (
+                <li key={item.id} className={styles.learningCard}>
+                  <p className={styles.learningIssuer}>{item.issuer}</p>
+                  <h4>{item.title}</h4>
+                  <time dateTime={item.date}>{learningDate(item.date)}</time>
+                  {url && <a className={styles.credentialLink} href={url} aria-label={`View credential: ${item.title}`}>View Credential <ExternalLink size={15} aria-hidden="true" /></a>}
+                </li>
+              )
+            })}
           </ul>
-        )}
+        </div>
       </section>
     </>
   )

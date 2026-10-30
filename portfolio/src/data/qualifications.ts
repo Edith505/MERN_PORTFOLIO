@@ -26,6 +26,42 @@ interface Experience {
 
 export const certifications: Certification[] = []
 
+interface LearningCertificate {
+  id: string
+  title: string
+  issuer: string
+  date: string
+  verificationUrl?: string
+}
+
+// Course completion certificates, separate from professional certifications.
+export const continuousLearning: LearningCertificate[] = [
+  {
+    id: 'introduction-ai',
+    title: 'Introduction to Artificial Intelligence',
+    issuer: 'LinkedIn Learning',
+    date: '2025-06',
+  },
+  {
+    id: 'generative-ai-ethics',
+    title: 'Ethics in the Age of Generative AI',
+    issuer: 'LinkedIn Learning',
+    date: '2025-05',
+  },
+  {
+    id: 'microsoft-365-copilot',
+    title: 'Learning Microsoft 365 Copilot for Work',
+    issuer: 'LinkedIn Learning',
+    date: '2025-05',
+  },
+  {
+    id: 'streamlining-copilot',
+    title: 'Streamlining Your Work with Microsoft Copilot',
+    issuer: 'LinkedIn Learning',
+    date: '2025-05',
+  },
+]
+
 export const education: Education[] = [
   {
     id: 'network-management',

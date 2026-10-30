@@ -1,11 +1,13 @@
 import { profile } from '../data/profile'
+import { Mail, MapPin } from 'lucide-react'
+import BrandIcon from '../components/BrandIcon'
 import styles from './Contact.module.css'
 
 function Contact() {
   const links = [
-  { label: 'Email', url: `mailto:${profile.email}` },
-  { label: 'GitHub', url: profile.links.github },
-  { label: 'LinkedIn', url: profile.links.linkedin },
+  { label: 'Email', url: profile.email ? `mailto:${profile.email}` : '', icon: <Mail size={18} aria-hidden="true" /> },
+  { label: 'GitHub', url: profile.links.github, icon: <BrandIcon brand="github" /> },
+  { label: 'LinkedIn', url: profile.links.linkedin, icon: <BrandIcon brand="linkedin" /> },
 ].filter((link) => link.url !== '')
 
   return (
@@ -28,8 +30,7 @@ function Contact() {
           {links.map((link) => (
             <li key={link.label}>
               <a href={link.url}>
-                {link.label}
-                <span aria-hidden="true"> ↗</span>
+                {link.icon}{link.label}
               </a>
             </li>
           ))}
@@ -39,6 +40,7 @@ function Contact() {
           Professional contact links will be available soon.
         </p>
       )}
+      <p className={styles.location}><MapPin size={17} aria-hidden="true" /> Québec, Canada</p>
     </section>
   )
 }
