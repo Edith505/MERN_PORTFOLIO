@@ -1,0 +1,50 @@
+.page {
+  max-width: 52rem;
+  margin-inline: auto;
+  padding-block: var(--space-12);
+  overflow-wrap: anywhere;
+}
+
+.page h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.03em;
+}
+
+.page h2 {
+  font-size: 1.5rem;
+}
+
+.page p {
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+}
+
+.page > p,
+.page > a {
+  display: block;
+  margin-top: var(--space-6);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.section p {
+  margin-top: var(--space-4);
+}
+
+.section ul {
+  padding-left: var(--space-6);
+}
+
+.section li + li {
+  margin-top: var(--space-2);
+}

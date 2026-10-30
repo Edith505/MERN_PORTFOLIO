@@ -1,8 +1,10 @@
+import { Route, Routes } from 'react-router'
 import Navbar from './components/Navbar'
-import Hero from './sections/Hero'
+import Home from './pages/Home'
+import ProjectDetail from './pages/ProjectDetail'
+import NotFound from './pages/NotFound'
 import styles from './App.module.css'
-import About from './sections/About'
-import Skills from './sections/Skills'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -10,24 +12,13 @@ function App() {
       <Navbar />
 
       <main id="main" className={styles.page} tabIndex={-1}>
-        <Hero />
-        <About />
-        <Skills />
-
-        <section
-          id="projects"
-          className={styles.notice}
-          aria-labelledby="projects-title"
-        >
-          <h2 id="projects-title" className={styles.label}>
-            Projects
-          </h2>
-          <p>
-            Technical projects are currently being documented.
-            More technical work will be published soon.
-          </p>
-        </section>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
+      <Footer />
     </>
   )
 }
