@@ -1,39 +1,55 @@
 export interface SkillCategory {
   title: string
+  description: string
   items: string[]
 }
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: 'Networking',
-    items: ['Cisco', 'DNS', 'DHCP'],
-  },
-  {
-    title: 'Systems',
+    title: 'Networking & Systems',
+    description:
+      'Network configuration, systems administration and infrastructure troubleshooting.',
     items: [
+      'Cisco',
+      'IPv4 / IPv6',
+      'VLAN',
+      'Routing',
+      'ACL',
+      'DNS',
+      'DHCP',
       'Windows Server',
       'Active Directory',
       'Linux',
       'Hyper-V',
-      'PowerShell',
     ],
   },
   {
-    title: 'Cloud',
-    items: ['Microsoft Azure', 'AWS'],
-  },
-  {
-    title: 'DevOps',
-    items: ['Git', 'GitHub', 'Docker', 'Kubernetes'],
+    title: 'Cloud & DevOps',
+    description:
+      'Cloud platforms, containers and version control.',
+    items: [
+      'Microsoft Azure',
+      'AWS',
+      'Docker',
+      'Kubernetes',
+      'Git / GitHub',
+    ],
   },
   {
     title: 'Development',
+    description:
+      'Web development, programming and database technologies.',
     items: [
+      'HTML',
+      'CSS',
       'JavaScript',
-      'React',
-      'Node.js',
+      'Java',
       'PHP',
-      'SQL / MySQL',
+      'Python',
+      'Node.js',
+      'Express',
+      'SQL',
+      'MySQL',
       'MongoDB',
     ],
   },

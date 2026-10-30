@@ -7,22 +7,26 @@ function About() {
       className={styles.section}
       aria-labelledby="about-title"
     >
-      <h2 id="about-title" className={styles.title}>
-        Software foundations. Infrastructure focus.
-      </h2>
+      <div>
+        <p className={styles.eyebrow}>About me</p>
+
+        <h2 id="about-title" className={styles.title}>
+          Software foundations.
+          <br />
+          <span>Infrastructure focus.</span>
+        </h2>
+      </div>
 
       <div className={styles.text}>
         <p>
-          I hold a degree in software engineering and am currently
-          studying network management in Québec.
+          I’m Eddy, a network management student at Cégep Limoilou
+          with a university background in software engineering.
         </p>
 
         <p>
-          My focus is on networks, systems administration and cloud
-          infrastructure, with an interest in security and automation.
-          My software engineering background complements this work
-          through scripting, application development and structured
-          problem-solving.
+          My experience spans web development, computer maintenance
+          and troubleshooting. I’m building on these foundations
+          to develop my skills in networks, systems, cloud and automation.
         </p>
       </div>
     </section>

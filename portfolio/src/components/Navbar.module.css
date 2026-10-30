@@ -10,18 +10,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-6);
   width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-6);
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-text-primary);
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: 1.375rem;
+  font-weight: 750;
   text-decoration: none;
 }
 
@@ -31,7 +33,7 @@
 
 .links {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-4);
   margin: 0;
   padding: 0;
@@ -43,6 +45,7 @@
   align-items: center;
   min-height: 44px;
   color: var(--color-text-secondary);
+  font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
   transition: color 180ms ease;
@@ -51,6 +54,26 @@
 .links a:hover {
   color: var(--color-primary);
   text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  border-color: var(--color-primary);
 }
 
 .skipLink {
@@ -59,12 +82,50 @@
   left: var(--space-4);
   z-index: 20;
   padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-button);
   color: var(--color-surface);
   background: var(--color-text-primary);
-  border-radius: var(--radius-button);
   transform: translateY(-200%);
 }
 
 .skipLink:focus {
   transform: translateY(0);
+}
+
+@media (max-width: 64rem) {
+  .navigation {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .links {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 60vh;
+    margin-top: var(--space-3);
+    padding-block: var(--space-2);
+    overflow-y: auto;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .links.open {
+    display: flex;
+  }
+
+  .links a {
+    display: flex;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-button);
+  }
+
+  .links a:hover {
+    background: var(--color-accent-soft);
+  }
 }

@@ -3,9 +3,10 @@ import styles from './Contact.module.css'
 
 function Contact() {
   const links = [
-    { label: 'GitHub', url: profile.links.github },
-    { label: 'LinkedIn', url: profile.links.linkedin },
-  ].filter((link) => link.url !== '')
+  { label: 'Email', url: `mailto:${profile.email}` },
+  { label: 'GitHub', url: profile.links.github },
+  { label: 'LinkedIn', url: profile.links.linkedin },
+].filter((link) => link.url !== '')
 
   return (
     <section

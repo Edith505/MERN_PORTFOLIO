@@ -3,13 +3,22 @@
   border-top: 1px solid var(--color-border);
 }
 
+.eyebrow {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .title {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  letter-spacing: -0.025em;
+  max-width: 24ch;
+  font-size: clamp(1.875rem, 3.5vw, 3rem);
+  letter-spacing: -0.035em;
 }
 
 .introduction {
-  max-width: 60ch;
   margin-top: var(--space-4);
   color: var(--color-text-secondary);
 }
@@ -17,53 +26,68 @@
 .categories {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-8);
-  margin-top: var(--space-12);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
 }
 
 .category {
   min-width: 0;
-  padding-top: var(--space-4);
-  border-top: 2px solid var(--color-border);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-6);
+  border-radius: 50%;
+  color: var(--color-primary);
+  background: var(--color-accent-soft);
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .categoryTitle {
-  margin-bottom: var(--space-4);
-  font-size: 1.125rem;
+  font-size: 1.25rem;
+}
+
+.description {
+  margin-top: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin: 0;
+  margin: var(--space-6) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .list li {
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-1) var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-button);
   color: var(--color-text-secondary);
-  background: var(--color-surface);
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
 }
 
-@media (max-width: 64rem) {
+@media (max-width: 56rem) {
   .categories {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (max-width: 48rem) {
   .section {
     padding-block: var(--space-12);
-  }
-}
-
-@media (max-width: 36rem) {
-  .categories {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
