@@ -1,0 +1,25 @@
+.page {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: 0 var(--space-6) var(--space-16);
+}
+
+.notice {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+.label {
+  margin-bottom: var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.notice p {
+  color: var(--color-text-secondary);
+}

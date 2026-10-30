@@ -1,0 +1,31 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-12);
+  padding-block: var(--space-16);
+  border-top: 1px solid var(--color-border);
+}
+
+.title {
+  max-width: 22ch;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.025em;
+}
+
+.text {
+  max-width: 65ch;
+  color: var(--color-text-secondary);
+  font-size: 1.0625rem;
+}
+
+.text p + p {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 48rem) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-block: var(--space-12);
+  }
+}
