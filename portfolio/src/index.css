@@ -101,3 +101,7 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}

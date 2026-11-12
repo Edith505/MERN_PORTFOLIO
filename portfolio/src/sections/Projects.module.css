@@ -186,3 +186,24 @@
     gap: var(--space-4);
   }
 }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; margin-top: 2rem; }
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.filters button, .clear { min-height: 44px; padding: .5rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-button); background: var(--color-surface); color: var(--color-text-primary); font: inherit; cursor: pointer; }
+.filters button[aria-pressed='true'] { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+.filters button:hover, .clear:hover { border-color: var(--color-primary); }
+.search { display: grid; gap: .5rem; max-width: 100%; font-size: .875rem; }
+.search input { min-height: 44px; width: 100%; min-width: 0; padding: .65rem .9rem; border: 1px solid var(--color-border); border-radius: var(--radius-button); background: var(--color-surface); color: var(--color-text-primary); font: inherit; }
+.clear { margin-top: .75rem; color: var(--color-primary); }
+.empty { padding: 2rem 0; }
+.controls[hidden] { display: none; }
+@media (max-width: 48rem) { .search { width: 100%; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .visual img { transition: transform 350ms cubic-bezier(.2,.7,.3,1); }
+  .card:hover .visual img, .card:focus-within .visual img { transform: scale(1.045); }
+  .projectLink svg { transition: transform 200ms ease; }
+  .projectLink:hover svg, .projectLink:focus-visible svg { transform: translateX(5px); }
+  .filters button, .controls button { transition: transform 180ms ease, background-color 180ms ease, color 180ms ease; }
+  .filters button:active, .controls button:active { transform: scale(.95); }
+}

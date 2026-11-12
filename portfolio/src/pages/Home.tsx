@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../components/useScrollReveal'
 import Hero from '../sections/Hero'
 import About from '../sections/About'
 import Skills from '../sections/Skills'
@@ -6,6 +7,7 @@ import Qualifications from '../sections/Qualifications'
 import Contact from '../sections/Contact'
 
 function Home() {
+  useScrollReveal()
   return (
     <>
       <Hero />

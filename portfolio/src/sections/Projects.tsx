@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { projectPlaceholders } from '../data/projects'
 import { getProjects } from '../services/projectService'
@@ -9,6 +9,24 @@ function Projects() {
   const projects = getProjects()
   const hasProjects = projects.length > 0
   const track = useRef<HTMLDivElement>(null)
+  const [category, setCategory] = useState('All')
+  const [query, setQuery] = useState('')
+  const source = hasProjects ? projects : projectPlaceholders
+  const categories = ['All', ...new Set(source.map((item) => item.category))]
+  const matches = (item: { category: string; title: string; summary: string; technologies: string[] }) =>
+    (category === 'All' || item.category === category) &&
+    [item.title, item.summary, ...item.technologies].join(' ').toLowerCase().includes(query.trim().toLowerCase())
+  const resultCount = source.filter(matches).length
+
+  function resetPosition() {
+    track.current?.scrollTo({ left: 0, behavior: 'instant' })
+  }
+
+  function clearFilters() {
+    setCategory('All')
+    setQuery('')
+    resetPosition()
+  }
 
   function scrollProjects(direction: number) {
     const list = track.current
@@ -37,12 +55,33 @@ function Projects() {
           : 'Projects in preparation. Technical documentation will be published progressively.'}
       </p>
 
+      <div className={styles.toolbar}>
+        <div className={styles.filters} role="group" aria-label="Filter projects by category">
+          {categories.map((item) => (
+            <button key={item} type="button" aria-pressed={category === item}
+              onClick={() => { setCategory(item); resetPosition() }}>
+              {item}
+            </button>
+          ))}
+        </div>
+        <label className={styles.search}>
+          <span>Search projects</span>
+          <input type="search" value={query} placeholder="Title or technology…"
+            onChange={(event) => { setQuery(event.target.value); resetPosition() }} />
+        </label>
+      </div>
+      <p className={styles.help} role="status" aria-live="polite" aria-atomic="true">
+        {resultCount} {resultCount === 1 ? 'project' : 'projects'} found
+      </p>
+      {(query || category !== 'All') && <button type="button" className={styles.clear} onClick={clearFilters}>Clear filters</button>}
+      {resultCount === 0 && <p className={styles.empty}>No matching projects. Try another category or technology.</p>}
+
       <p id="projects-help" className={styles.help}>
         Scroll horizontally to explore. Keyboard users can focus
         the project list and use the arrow keys.
       </p>
 
-      <div className={styles.controls}>
+      <div className={styles.controls} hidden={resultCount === 0}>
         <button type="button" aria-label="Previous projects" aria-controls="project-list" onClick={() => scrollProjects(-1)}><ArrowLeft size={20} aria-hidden="true" /></button>
         <button type="button" aria-label="Next projects" aria-controls="project-list" onClick={() => scrollProjects(1)}><ArrowRight size={20} aria-hidden="true" /></button>
       </div>
@@ -57,7 +96,7 @@ function Projects() {
         tabIndex={0}
       >
         {hasProjects
-          ? projects.map((project) => (
+          ? projects.filter(matches).map((project) => (
               <article key={project.id} className={styles.card}>
                 <div className={styles.visual}>
                   {project.image ? (
@@ -102,7 +141,7 @@ function Projects() {
                 </div>
               </article>
             ))
-          : projectPlaceholders.map((placeholder) => (
+          : projectPlaceholders.filter(matches).map((placeholder) => (
               <article
                 key={placeholder.id}
                 className={styles.card}

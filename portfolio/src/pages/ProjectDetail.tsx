@@ -21,8 +21,10 @@ function ProjectDetail() {
         <section className={styles.section}>
           <h2>Documentation in preparation</h2>
           <p>This is a preview of a planned project. The image is illustrative. Architecture, implementation and results will be published once documented.</p>
-          <h2>Planned technologies</h2>
-          <ul>{preparation.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
+          <details className={styles.disclosure}>
+            <summary>Explore planned technologies</summary>
+            <ul>{preparation.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
+          </details>
         </section>
       </article>
     )
@@ -79,23 +81,23 @@ function ProjectDetail() {
 
       {textSections.map(({ title, content }) =>
         content ? (
-          <section key={title} className={styles.section}>
-            <h2>{title}</h2>
+          <details key={title} className={styles.disclosure}>
+            <summary>{title}</summary>
             <p>{content}</p>
-          </section>
+          </details>
         ) : null,
       )}
 
       {listSections.map(({ title, items }) =>
         items?.length ? (
-          <section key={title} className={styles.section}>
-            <h2>{title}</h2>
+          <details key={title} className={styles.disclosure}>
+            <summary>{title}</summary>
             <ul>
               {items.map((item, index) => (
                 <li key={`${title}-${index}`}>{item}</li>
               ))}
             </ul>
-          </section>
+          </details>
         ) : null,
       )}
     </article>
